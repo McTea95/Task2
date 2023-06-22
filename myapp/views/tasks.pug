@@ -1,0 +1,27 @@
+//- tasks.pug
+
+doctype html
+html
+  head
+    title Tasks
+  body
+    h1 Task Manager
+    form(action="/tasks", method="POST")
+      label(for="title") Title:
+      input(type="text", name="title", id="title")
+      br
+      label(for="description") Description:
+      textarea(name="description", id="description")
+      br
+      input(type="submit", value="Submit")
+    h1 Meine Aufgaben
+    ul
+      each task in tasks
+        li
+          h3= task.title
+          p= task.description
+          p= task.date
+          form(action=`/tasks/${task._id}`, method="POST")
+            input(type="hidden", name="_method", value="DELETE")
+            button(type="submit") Aufgabe löschen
+            
